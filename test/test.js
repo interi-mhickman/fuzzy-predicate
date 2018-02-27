@@ -141,6 +141,11 @@ describe("fuzzy-predicate", function() {
         name: "John Doe",
         age: 1234
       },
+      { 
+        id: "def123",
+        name: ["Mrs.", "Foo Bar"],
+        age: 95
+      },
       {
         foo: "bar"
       },
@@ -159,6 +164,11 @@ describe("fuzzy-predicate", function() {
           id: "abc123",
           name: "Foo Bar",
           age: 42
+        },
+        { 
+          id: "def123",
+          name: ["Mrs.", "Foo Bar"],
+          age: 95
         },
         {
           bar: "foo"
@@ -194,6 +204,11 @@ describe("fuzzy-predicate", function() {
         id: "abc123",
         name: "Foo Bar",
         age: 42
+      },
+      {
+          id: "def123",
+          name: ["Mrs.", "Foo Bar"],
+          age: 95
       }]);
 
       results = haystack.filter(fuzzy("foo", ["name", "bar"]));
@@ -202,6 +217,11 @@ describe("fuzzy-predicate", function() {
           id: "abc123",
           name: "Foo Bar",
           age: 42
+        },
+        { 
+          id: "def123",
+          name: ["Mrs.", "Foo Bar"],
+          age: 95
         },
         {
           bar: "foo"

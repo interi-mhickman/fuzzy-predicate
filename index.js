@@ -52,10 +52,19 @@ function _search(haystack, needle, keys) {
     case "string":
       return _normalize(haystack).indexOf(_normalize(needle)) >= 0;
     case "object":
-      for (var key in haystack) {
-        if (haystack.hasOwnProperty(key) && (keys.length === 0 || keys.indexOf(key) >= 0)) {
-          if (_search(haystack[key], needle, keys)) {
+      // if the object is an array of strings, check if any string is a match
+      if ((haystack instanceof Array) && haystack.every(function(x) { return (typeof x === "string");})) {
+        for (var i=0, len=haystack.length; i < len; i++) {
+          if (_normalize(haystack[i]).indexOf(_normalize(needle)) >= 0) {
             return true;
+          }
+        }
+      } else {     
+        for (var key in haystack) {
+          if (haystack.hasOwnProperty(key) && (keys.length === 0 || keys.indexOf(key) >= 0)) {
+            if (_search(haystack[key], needle, keys)) {
+              return true;
+            }
           }
         }
       }
